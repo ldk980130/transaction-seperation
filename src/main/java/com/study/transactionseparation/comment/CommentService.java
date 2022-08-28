@@ -10,12 +10,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class CommentService {
 
 	private final CommentRepository commentRepository;
 	private final ApplicationEventPublisher applicationEventPublisher;
 
+	@Transactional
 	public Long create(String writer, String content) {
 		Comment comment = commentRepository.save(new Comment(writer, content));
 		applicationEventPublisher.publishEvent(new PushEvent(comment));
